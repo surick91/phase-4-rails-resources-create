@@ -5,8 +5,11 @@ class BirdsController < ApplicationController
     birds = Bird.all
     render json: birds
   end
-
-  # GET /birds/:id
+  def create
+    bird = Bird.create(name: params[:name], species: params[:species])
+    render json: bird, status: :created
+  end
+ 
   def show
     bird = Bird.find_by(id: params[:id])
     if bird
@@ -15,5 +18,4 @@ class BirdsController < ApplicationController
       render json: { error: "Bird not found" }, status: :not_found
     end
   end
-
 end
